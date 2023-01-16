@@ -45,6 +45,7 @@ metadata:
   name: mongo-service
   labels:
     app: mongo
+  namespace: argo-test
 spec:
   allocateLoadBalancerNodePorts: true
   externalTrafficPolicy: Cluster
