@@ -1,0 +1,63 @@
+# configMap 파일의 전체 key-value들을 env와 매칭 (envFrom)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-mongo
+  namespace: default
+data:
+  MONGO_INITDB_ROOT_USERNAME: user
+  MONGO_INITDB_ROOT_PASSWORD: password
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - image: mongo
+          name: mongo
+          ports:
+            - containerPort: 27017
+          args: ["--dbpath", "/data/db"]
+          envFrom:
+            - configMapRef:
+                name: config-mongo
+      #     volumeMounts:
+      #       - mountPath: /data/db
+      #         name: mongo-volume
+      # volumes:
+      #   - name: mongo-volume
+      #     hostPath:
+      #       path: /home/ubuntu/mongoVol2
+      #       type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+  labels:
+    app: mongo
+  namespace: default
+spec:
+  allocateLoadBalancerNodePorts: true
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  type: LoadBalancer
+  ports:
+    - nodePort: 30303
+      port: 27017
+      protocol: TCP
+      targetPort: 27017
+  selector:
+    app: mongo
+status:
+  loadBalancer: {}
