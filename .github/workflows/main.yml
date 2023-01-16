@@ -1,25 +1,25 @@
-# name: First Action
-# on:
-#   push:
-#     branches: [ "master" ]
-#   workflow_dispatch:
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#       - name: Internal IP
-#         run: echo $(hostname -i)
-#       - name: Run a multi-line script
-#         run: |
-#           pwd
-#           echo ' '
-#           ls
-#           echo ' '
-#           mkdir Hello
-#           cd Hello 
-#           echo "My Name Is Hyunsoo" > Name.txt
-#           echo ' ' 
-#           pwd
-#           ls
+name: First Action
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Internal IP
+        run: echo $(hostname -i)
+      - name: Run a multi-line script
+        run: |
+          pwd
+          echo ' '
+          ls
+          echo ' '
+          mkdir Hello
+          cd Hello 
+          echo "My Name Is Hyunsoo" > Name.txt
+          echo ' ' 
+          pwd
+          ls
           
