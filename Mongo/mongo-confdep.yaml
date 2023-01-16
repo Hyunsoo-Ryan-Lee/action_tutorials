@@ -3,6 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: config-mongo
+  namespace: argo-test
 data:
   MONGO_INITDB_ROOT_USERNAME: user
   MONGO_INITDB_ROOT_PASSWORD: password
@@ -11,6 +12,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongo
+  namespace: argo-test
 spec:
   replicas: 1
   selector:
@@ -50,7 +52,7 @@ spec:
   allocateLoadBalancerNodePorts: true
   externalTrafficPolicy: Cluster
   internalTrafficPolicy: Cluster
-  type: LoadBalancer
+  type: NodePort
   ports:
     - nodePort: 30303
       port: 27017
