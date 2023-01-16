@@ -60,5 +60,5 @@ spec:
       targetPort: 27017
   selector:
     app: mongo
-status:
-  loadBalancer: {}
+# status:
+#   loadBalancer: {}
