@@ -49,13 +49,12 @@ metadata:
     app: mongo
   namespace: argo-test
 spec:
-  allocateLoadBalancerNodePorts: true
+  # allocateLoadBalancerNodePorts: true
   externalTrafficPolicy: Cluster
   internalTrafficPolicy: Cluster
   type: NodePort
   ports:
     - nodePort: 30303
-      port: 27017
       protocol: TCP
       targetPort: 27017
   selector:
